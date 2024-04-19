@@ -6,8 +6,10 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "open-ios": "open -a Simulator && expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+
   },
   "jest": {
     "preset": "jest-expo"
@@ -28,7 +30,7 @@
     "expo-web-browser": "~12.3.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.72.4",
+    "react-native": "0.72.10",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-picker-module": "^2.0.7",
     "react-native-picker-select": "^8.1.0",
