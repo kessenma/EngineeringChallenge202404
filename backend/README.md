@@ -29,7 +29,7 @@ Follow these steps to set up the BellSant Machine Health API:
 
 ### Starting the API
 
-To start the API, run the following command:
+To start the API, run the following command from the backend directory:
 
 ```bash
 yarn start

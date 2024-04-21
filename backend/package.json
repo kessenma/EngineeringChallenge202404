@@ -4,7 +4,7 @@
   "description": "A Node.js API for assessing the health of machines based on their individual parts' conditions.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec ts-node app.ts",
+    "startBackend": "nodemon --exec ts-node app.ts",
     "test": "jest",
     "deploy": "ntl deploy --prod",
     "build": "tsc",
@@ -16,6 +16,7 @@
   "dependencies": {
     "@netlify/functions": "^2.0.2",
     "express": "^4.17.1",
+    "express-session": "^1.18.0",
     "knex": "^3.1.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",

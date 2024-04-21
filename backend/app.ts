@@ -5,8 +5,6 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { getMachineHealth } from './machineHealth';
 import db from './data/db';
 import { User } from './types/types';
-// Import your User model here
-// import User from './models/User';
 
 const app = express();
 const port = 3001;
@@ -46,9 +44,15 @@ passport.use(new LocalStrategy(
 ));
 
 // Serialize user into session
-passport.serializeUser((user: User, done) => {
-  done(null, (user as User).id);
+// passport.serializeUser((user: User, done) => {
+//   done(null, (user as User).id);
+// });
+
+passport.serializeUser((user: any, done) => {
+  console.log(user); // Check the user object structure
+  done(null, user.id);
 });
+
 
 passport.deserializeUser((id: string, done) => {
   db('users').where({ id: parseInt(id, 10) }).first()
