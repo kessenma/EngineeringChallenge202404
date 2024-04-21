@@ -1,5 +1,10 @@
 {
+  "include": [
+    "backend/**/*.ts",                                     /* This line ensures that TypeScript includes all your .ts files in the backend folder */
+    "types/*.ts"
+  ],
   "compilerOptions": {
+    "esModuleInterop": true,                              /* Since you're working with Express, you may want to enable esModuleInterop to allow for easier importing of CommonJS modules: */
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */

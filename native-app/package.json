@@ -1,15 +1,15 @@
 {
   "name": "app",
-  "main": "expo-router/entry",
+  "main": "app/index.tsx",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "open-ios": "open -a Simulator && expo start --ios",
+    "open-ios-clean-cache": "open -a Simulator && expo start -c --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
-
+    "test": "jest --watchAll"
   },
   "jest": {
     "preset": "jest-expo"

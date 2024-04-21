@@ -1,6 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {Link, Tabs} from 'expo-router';
 import {Pressable, useColorScheme} from 'react-native';
+import StateScreen from './MachineStateScreen';
 
 import Colors from '../../constants/Colors';
 
@@ -18,25 +19,28 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}
-    >
-      <Tabs.Screen
-        name='index'
-        options={{
-          title: 'Machine State',
-          tabBarIcon: ({color}) => <TabBarIcon name='list-ul' color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name='two'
-        options={{
-          title: 'Log Part',
-          tabBarIcon: ({color}) => <TabBarIcon name='edit' color={color} />,
-        }}
-      />
-    </Tabs>
+      <Tabs
+          screenOptions={{
+              tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+          }}
+      >
+          <Tabs.Screen
+              name="MachineState"
+              component={StateScreen}
+              options={{
+                  title: 'Machine State',
+                  tabBarIcon: ({color}) => <TabBarIcon name='list-ul' color={color} />,
+              }}
+          />
+
+          <Tabs.Screen
+              name="two"
+              options={{
+                  title: 'Log Part',
+                  tabBarIcon: ({color}) => <TabBarIcon name='edit' color={color} />,
+              }}
+          />
+          // Add other tabs as needed
+      </Tabs>
   );
 }

@@ -6,6 +6,7 @@ import {useMachineData} from '../useMachineData';
 import {useCallback, useState} from 'react';
 import {PartsOfMachine} from '../../components/PartsOfMachine';
 import {MachineScore} from '../../components/MachineScore';
+import RootNavigator from '../RootNavigator';
 
 let apiUrl: string =
   'https://fancy-dolphin-65b07b.netlify.app/api/machine-health';
