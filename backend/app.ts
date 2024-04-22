@@ -77,6 +77,11 @@ app.get('/logout', (req, res) => {
 });
 */
 
+app.get('/protected-route', passport.authenticate('strategy-name', { session: false }), (req, res) => {
+  res.json({ message: 'If you see this, you are authenticated' });
+});
+
+
 // Endpoint to get machine health score
 app.post('/machine-health', (req: Request, res: Response) => {
   // Ensure that the user is authenticated before allowing access to this route

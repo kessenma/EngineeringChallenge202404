@@ -32,7 +32,7 @@ Follow these steps to set up the BellSant Machine Health API:
 To start the API, run the following command from the backend directory:
 
 ```bash
-yarn start
+yarn startBackend
 ```
 
 The API will be accessible at `http://localhost:3001` by default. You can change the port or other configurations in the `app.ts` file.

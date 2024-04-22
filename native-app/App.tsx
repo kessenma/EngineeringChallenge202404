@@ -1,6 +1,12 @@
+// App.tsx
 import React from 'react';
-import RootNavigator from './app/RootNavigator'; // Adjust the path as necessary
+import { NavigationContainer } from '@react-navigation/native';
+import RootNavigator from './app/RootNavigator'; // Adjust the import path as needed
 
 export default function App() {
-    return <RootNavigator />;
+    return (
+        <NavigationContainer>
+            <RootNavigator />
+        </NavigationContainer>
+    );
 }

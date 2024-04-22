@@ -4,7 +4,7 @@
     "slug": "app",
     "version": "1.0.0",
     "platforms": ["ios", "android"],
-    "orientation": "portrait",
+    "orientatioxn": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -13,6 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "jsEngine": "hermes",
     "assetBundlePatterns": [
       "**/*"
     ],
