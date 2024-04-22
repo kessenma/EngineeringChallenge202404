@@ -15,6 +15,7 @@
   "author": "BellSant",
   "dependencies": {
     "@netlify/functions": "^2.0.2",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-session": "^1.18.0",
     "knex": "^3.1.0",
@@ -25,6 +26,7 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.17",
     "@types/express-session": "^1.18.0",
     "@types/jest": "^29.5.4",
