@@ -127,3 +127,47 @@ For specific details on running the API and React Native app, refer to their res
 
 **Note:**
 This project is designed to take approximately 3 hours, but there is no strict time limit. We are interested in seeing how far you can get and the quality of your final deliverable. Focus on completing the core requirements before attempting the stretch goals. Feel free to make reasonable assumptions if certain details are not explicitly provided. If you encounter challenges, document them and describe how you would address them with more time.
+
+
+## Kyle Essenmacher implementations: 
+
+to operate the new API endpoints I built:
+1. Open three terminals and cd into native-app in one and then backend in the other two
+   - (or open the `backend/package.json` + `native-app/package.json` files and run the commands outlined below there)
+2. in the _native-app directory_ terminal run: `npm install && yarn install`
+3. in the _backend directory_ run `npm install && yarn instal` and then` run 'yarn startBackend`
+   - (there might be some issues with the packages being installed from these commands, i didn't get around to fixing all of them)
+4. navigate to the third backend directory and run `yarn migrate`
+   - this creates a user database in the new SQL dB created in the `backend/data` directory
+5. Now go back to the terminal with the native app and run `open -a Simulator && expo start -c --ios`
+6. create a new username + PW
+   - right now the only rule I built into the signup logic is that there cannot be duplicate usernames created
+7. sign in 
+
+### notes 
+additional notes: you can also access the `/signup`+ `login` routes created using postman and the following information:
+<br>
+
+Post call using this as the URL: 
+```
+http://localhost:3001/signup
+```
+adding this _key value pair_ to the headers: 
+```
+(key:) Content-Type + (value:) application/json
+```
+with this as the body: 
+```
+{
+    "username": "12345",
+    "password": "12345"
+}
+```
+now you can use the `/login` route with this username + PW via making another postman call or altering the one you just made if you'd like via making a call with the same headers as above, 
+
+
+
+
+
+
+

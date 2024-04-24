@@ -1,18 +1,19 @@
-import express, {NextFunction, Request, Response} from 'express';
-import passport from 'passport'; // Import passport
-import session from 'express-session'; // Import express-session
+import express, { NextFunction, Request, Response } from 'express';
+import passport from 'passport';
+import session from 'express-session';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { getMachineHealth } from './machineHealth';
 import db from './data/db';
 import bcrypt from 'bcryptjs';
 import { User } from './types/types';
 import { IVerifyOptions } from 'passport-local';
+import 'dotenv/config';
 
 const app = express();
-const port = 3001;
+const port = 3002;
 
-// Session configuration
-// Make sure to set the SESSION_SECRET as an environment variable
+console.log("NODE_ENV:", process.env.NODE_ENV);
+
 const SESSION_SECRET = process.env.SESSION_SECRET || 'default_session_secret';
 
 app.use(session({
@@ -27,6 +28,7 @@ app.use(passport.session());
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+
 
 // Passport local strategy
 passport.use(new LocalStrategy(
@@ -46,7 +48,6 @@ passport.use(new LocalStrategy(
     }
 ));
 // Login Route
-// Login Route
 app.post('/login', (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', (err: Error, user: User | false, info: IVerifyOptions) => {
     if (err) {
@@ -64,7 +65,6 @@ app.post('/login', (req: Request, res: Response, next: NextFunction) => {
     });
   })(req, res, next);
 });
-
 
 // Signup Route
 app.post('/signup', async (req, res) => {
@@ -92,12 +92,10 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-
 passport.serializeUser((user: any, done) => {
   console.log(user); // Check the user object structure
   done(null, user.id);
 });
-
 
 passport.deserializeUser((id: string, done) => {
   db('users').where({ id: parseInt(id, 10) }).first()
@@ -105,13 +103,9 @@ passport.deserializeUser((id: string, done) => {
       .catch((error: any) => done(error));
 });
 
-
-
-
 app.get('/protected-route', passport.authenticate('local', { session: false }), (req, res) => {
   res.json({ message: 'If you see this, you are authenticated' });
 });
-
 
 // Endpoint to get machine health score
 app.post('/machine-health', (req: Request, res: Response) => {
@@ -129,6 +123,23 @@ app.post('/machine-health', (req: Request, res: Response) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`API is listening at http://localhost:${port}`);
-});
+const startServer = () => {
+  app.listen(port, () => {
+    console.log(`API is listening at http://localhost:${port}`);
+  });
+};
+
+// Run migrations and then start the server
+db.migrate.latest()
+    .then(() => {
+      console.log('Migrations are up to date');
+      startServer();
+    })
+    .catch((error: any) => {
+      console.error('Error running migrations:', error);
+      process.exit(1); // Exit the process with a non-zero code to indicate failure
+    });
+//
+// app.listen(port, () => {
+//   console.log(`API is listening at http://localhost:${port}`);
+// });
