@@ -3,8 +3,8 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import LoginScreen from '../components/LoginScreen';
-import TabLayout from './(tabs)/_layout'; // Adjust the import path as necessary
-import ModalScreen from './modal'; // Adjust the import path as necessary
+import TabLayout from './tabs/_layout';
+import ModalScreen from './modal';
 
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
@@ -16,7 +16,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'tabs',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -50,9 +50,9 @@ function RootLayoutNav() {
   // ...
   return (
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack.Navigator initialRouteName="(tabs)">
+        <Stack.Navigator initialRouteName="tabs">
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" component={TabLayout} options={{ headerShown: false }} />
+          <Stack.Screen name="tabs" component={TabLayout} options={{ headerShown: false }} />
           <Stack.Screen name="modal" component={ModalScreen} options={{ presentation: 'modal' }} />
         </Stack.Navigator>
       </ThemeProvider>

@@ -8,9 +8,10 @@ import bcrypt from 'bcryptjs';
 import { User } from './types/types';
 import { IVerifyOptions } from 'passport-local';
 import 'dotenv/config';
+import {migrateDatabase} from "./data/migrateDatabase";
 
 const app = express();
-const port = 3002;
+const port = 3003;
 
 console.log("NODE_ENV:", process.env.NODE_ENV);
 
@@ -110,10 +111,10 @@ app.get('/protected-route', passport.authenticate('local', { session: false }), 
 // Endpoint to get machine health score
 app.post('/machine-health', (req: Request, res: Response) => {
   // Ensure that the user is authenticated before allowing access to this route
-  if (!req.isAuthenticated()) {
-    // If not authenticated, return an appropriate response, such as a 401 Unauthorized
-    return res.status(401).json({ message: 'User not authenticated' });
-  }
+  // if (!req.isAuthenticated()) {
+  //   // If not authenticated, return an appropriate response, such as a 401 Unauthorized
+  //   return res.status(401).json({ message: 'User not authenticated' });
+  // }
 
   const result = getMachineHealth(req);
   if (result.error) {
@@ -130,16 +131,4 @@ const startServer = () => {
 };
 
 // Run migrations and then start the server
-db.migrate.latest()
-    .then(() => {
-      console.log('Migrations are up to date');
-      startServer();
-    })
-    .catch((error: any) => {
-      console.error('Error running migrations:', error);
-      process.exit(1); // Exit the process with a non-zero code to indicate failure
-    });
-//
-// app.listen(port, () => {
-//   console.log(`API is listening at http://localhost:${port}`);
-// });
+migrateDatabase().then(() => startServer());

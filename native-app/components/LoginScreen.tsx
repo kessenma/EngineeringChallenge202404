@@ -1,37 +1,40 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
+import { View, TextInput, Button, Alert, StyleSheet } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isLogin, setIsLogin] = useState(true); // toggle between login and signup
 
-    const handleLogin = async () => {
+    const handleAuth = async () => {
+        const url = `http://localhost:3001/${isLogin ? 'login' : 'signup'}`;
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ username, password }),
+                credentials: 'include', // if your server uses cookies
             });
 
-            const json = await response.json();
-
             if (response.ok) {
-                // If login is successful, navigate to the next screen or save token
-                // e.g., navigation.navigate('Home');
+                const json = await response.json();
+                // Handle successful authentication
+                navigation.navigate('MachineState');
             } else {
-                // If there was a problem, alert the user
-                Alert.alert('Login Failed', json.message || 'Please check your credentials.');
+                const errorJson = await response.json();
+                Alert.alert('Authentication Failed', errorJson.message || 'Please check your credentials.');
             }
         } catch (error) {
-            // If there is an error sending the request
-            Alert.alert('Network error', 'Unable to connect to the server');
+            console.error(error);
+            Alert.alert('Network error', error.message || 'Unable to connect to the server');
         }
     };
 
+
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.container}>
             <TextInput
                 placeholder="Username"
                 value={username}
@@ -44,9 +47,21 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={setPassword}
                 secureTextEntry
             />
-            <Button title="Log In" onPress={handleLogin} />
+            <Button title={isLogin ? "Log In" : "Sign Up"} onPress={handleAuth} />
+            <Button
+                title={isLogin ? "Need an account? Sign Up" : "Have an account? Log In"}
+                onPress={() => setIsLogin(!isLogin)}
+            />
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
 
 export default LoginScreen;
